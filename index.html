@@ -956,8 +956,8 @@
             <div class="acc-item">
               <button class="acc-btn" aria-expanded="false">payment, how it works <span class="chev">▾</span></button>
               <div class="acc-panel">
-                <p>payment is arranged with me directly. there's no checkout button on this page, and you'll never be asked to pay through it.</p>
-                <p>once your request is accepted, we'll confirm the total price and payment schedule together before work begins. split payments (for example, part upfront and the rest before final delivery) can be arranged for larger projects, just ask. work starts after the agreed first payment is received.</p>
+                <p>payment goes through my Ko-fi page — the same one for every service. when you send a request form, your order details come to my inbox first, and then you continue to Ko-fi and enter the total from your request yourself.</p>
+                <p>once your request is accepted, we'll confirm the total price and payment schedule together before work begins. split payments (for example, part upfront and the rest before final delivery) can be arranged for larger projects, just ask — talk to me first before you pay, and we'll figure it out together. work starts after the agreed first payment is received.</p>
                 <p>please never send payment to any account that I haven't confirmed with you myself, through my official channels listed on this page.</p>
               </div>
             </div>
@@ -1054,7 +1054,7 @@
             <div class="acc-item">
               <button class="acc-btn" aria-expanded="false">how does payment work? is it safe? <span class="chev">▾</span></button>
               <div class="acc-panel">
-                <p>payment is handled by me personally, and only after your commission is accepted and we've confirmed the details together. never through a random link, and never before we've talked. for bigger projects, splitting the payment into stages is possible. you can read the full payment policy in the <a href="#guide">guide &amp; terms</a> above.</p>
+                <p>payment goes through my Ko-fi page — after you send your request, you continue there and enter the total from your request. never pay through a random link, and if you'd like a payment plan for a bigger project, talk to me first and we'll figure it out together. you can read the full payment policy in the <a href="#guide">guide &amp; terms</a> above.</p>
               </div>
             </div>
             <div class="acc-item">
@@ -1124,7 +1124,7 @@
             </div>
             <div class="rv-card">
               <h3 id="fdFormTitle">request this service</h3>
-              <p class="rv-note" style="margin-bottom: 20px;">this form builds a summary for you to copy and send to me yourself. nothing is sent automatically, and sending a request doesn't commit you to anything.</p>
+              <p class="rv-note" style="margin-bottom: 20px;">when you send this form, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment — just enter the total from your request there. if you'd like to talk through your project first, my DMs on X are always open.</p>
               <form id="fdForm" novalidate>
                 <div class="form-grid" id="fdFields"></div>
                 <div class="form-grid" style="margin-top: 18px;">
@@ -1133,7 +1133,7 @@
                       <span class="from">your estimated total</span>
                       <div class="total-lines" id="fdTotalLines"></div>
                       <div class="total-amount" id="fdTotalAmount">$0</div>
-                      <p class="total-note">an estimate from the options you picked. the final quote is confirmed with you in DMs before any work starts.</p>
+                      <p class="total-note">an estimate from the options you picked — this is the amount you'll pay on Ko-fi right after sending your request.</p>
                     </div>
                   </div>
                   <div class="field full" id="f-fdtos">
@@ -1144,7 +1144,7 @@
                     <span class="err">please confirm you've read the terms</span>
                   </div>
                   <div class="field full">
-                    <p class="form-note">quick privacy note: this page doesn't store or send anything. your answers stay in your browser until you copy the summary and send it yourself, through X DMs.</p>
+                    <p class="form-note">quick note: sending this form emails your order details to me so I can start on your project — nothing is stored on this page itself.</p>
                   </div>
                   <div class="field full">
                     <button type="submit" class="btn btn-primary" id="fdSubmit">build my request</button>
@@ -1153,10 +1153,12 @@
               </form>
               <div class="summary-box" id="fdSummaryBox" aria-live="polite">
                 <h3 id="fdSummaryTitle">your request is ready 🌿</h3>
-                <p style="color: var(--ink-soft);">one last step: this form doesn't send anything by itself. copy the summary below and DM it to me on X (@greenvielle or @greenvielle2nd), and we'll talk through the details from there.</p>
+                <p class="send-status" id="fdSendStatus" role="status"></p>
+                <p style="color: var(--ink-soft); position: relative; z-index: 1;">here's your order summary — keep a copy if you'd like.</p>
                 <pre id="fdSummaryText"></pre>
                 <div class="summary-actions">
-                  <button type="button" class="btn btn-primary btn-small" id="fdCopyBtn">copy request summary</button>
+                  <a class="btn btn-primary btn-small" id="fdKofiBtn" href="https://ko-fi.com/c/84800e167f" target="_blank" rel="noopener" style="display: none;">continue to payment on Ko-fi →</a>
+                  <button type="button" class="btn btn-ghost btn-small" id="fdCopyBtn">copy request summary</button>
                   <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener">find me on X</a>
                   <span class="copy-ok" id="fdCopyOk">copied! now just paste it into a message ✓</span>
                 </div>
@@ -1311,8 +1313,10 @@
               <h3 id="svcReqTitle">request this service</h3>
               <p class="rv-note" id="svcPriceLine"></p>
               <p class="rv-note" style="margin-top: 10px;">this service doesn't have its own form yet, so requests go through DMs. send me a message on X with a few details about your project: what you'd like made, any references you have, and your deadline if you have one. a rough idea is totally fine. I read every message myself, and we confirm the price and the details together before any work starts.</p>
+              <p class="rv-note" style="margin-top: 10px;">once we've confirmed the price together, you complete your payment on Ko-fi — just enter the total we agreed on. every commission uses this same Ko-fi page.</p>
               <div class="contact-links" style="margin-top: 18px;">
-                <a class="btn btn-primary btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener">@greenvielle on X</a>
+                <a class="btn btn-primary btn-small" id="svcKofiBtn" href="https://ko-fi.com/c/84800e167f" target="_blank" rel="noopener">pay on Ko-fi →</a>
+                <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener">@greenvielle on X</a>
                 <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle2nd" target="_blank" rel="noopener">@greenvielle2nd on X</a>
               </div>
             </div>
@@ -1430,6 +1434,18 @@
           closed: "commissions closed, waitlist only"
         }
       };
+
+      /* ================================================================
+         PAYMENT: ONE Ko-fi listing for every commission. this is the
+         single place the payment link lives — every service's request
+         flow reads it from here (the model art form, the shared form
+         for the other form services, and the DM-request page), so a
+         service added later is wired to Ko-fi automatically just by
+         using those shared pages. clients enter the total from their
+         request themselves on Ko-fi.
+         ================================================================ */
+      var KOFI_URL = "https://ko-fi.com/c/84800e167f";
+      var WEB3FORMS_KEY = "3151acb2-9f81-4dd8-b73b-28c514f93298";
 
       var SERVICES = [
         {
@@ -1628,7 +1644,7 @@
           ],
           layout: ["group:license", "field:refs", "group:background", "addons", "group:rush", "group:share", "field:deadline", "field:notes", "group:payment"],
           important: [
-            "once you've filled in the form below, send me the summary in a DM on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) so we can talk through your piece together.",
+            "when you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. if you'd like to talk through your piece first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "please credit me as the artist when you post the finished piece.",
             "the background you pick is already counted in your total, so there are no surprise extra costs later."
           ]
@@ -1684,7 +1700,7 @@
           notes: { usage: "good news, with rigging every use is included. streaming, content, and merch are all covered at no extra charge, so there is no license choice to make here." },
           layout: ["note:usage", "field:psd", "field:artist", "addons", "group:rush", "field:deadline", "field:nda", "field:notes"],
           important: [
-            "once you've filled in the form below, send me the summary in a DM on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) so we can talk through the rigging details together.",
+            "when you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. if you'd like to talk through the rigging details first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "the CMO3 source file is not included by default. if you need it, you can add it in the form below (it costs +60%).",
             "please credit me as the rigger on your socials, on Twitch, and when you debut your model."
           ]
@@ -1737,7 +1753,7 @@
           ],
           layout: ["group:license", "group:source", "field:refs", "group:share", "addons", "field:deadline", "field:notes"],
           important: [
-            "once you've filled in the form below, send me the summary in a DM on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) so we can plan your model and your debut together.",
+            "when you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. if you'd like to plan your model and your debut together first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "because a full package is a big project, we confirm the scope, timeline, and payment schedule together in DMs before anything starts.",
             "please credit me as the model artist and rigger on your socials, on Twitch, and at your debut."
           ]
@@ -1778,7 +1794,7 @@
           ],
           layout: ["group:usage", "field:refs", "field:notes"],
           important: [
-            "once you've filled in the form below, send me the summary in a DM on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) so we can talk through your overlay together.",
+            "when you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. if you'd like to talk through your overlay first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "please credit me as the artist when you use your overlay on stream.",
             "art only packages take around 2 to 3 weeks, and packages with rigging take around 3 to 4 weeks."
           ]
@@ -1820,7 +1836,7 @@
           ],
           layout: ["group:license", "field:refs", "addons", "field:notes"],
           important: [
-            "once you've filled in the form below, send me the summary in a DM on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) so we can talk through your controller together.",
+            "when you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. if you'd like to talk through your controller first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "please credit me as the artist when you use your controller on stream.",
             "there is no controller artwork in my gallery yet, so the gallery above is a placeholder. your controller will be made fresh with your character."
           ]
@@ -1873,7 +1889,7 @@
           ],
           layout: ["group:license", "group:rush", "field:refs", "field:logotext", "field:color", "field:notes", "group:portfolio"],
           important: [
-            "once you've filled in the form below, send me the summary in a DM on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) so we can confirm the design direction together.",
+            "when you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. if you'd like to confirm the design direction first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "your finished logo is delivered as a PNG file.",
             "if you'd rather send reference files than links, just say so in your DM and we'll arrange it there."
           ]
@@ -2425,6 +2441,11 @@
         if (s.featured) { feat.innerHTML = s.featured; feat.hidden = false; }
         else { feat.innerHTML = ""; feat.hidden = true; }
         document.getElementById("svcReqTitle").textContent = "request " + s.name;
+        /* services without their own form still pay through the one
+           shared Ko-fi listing, once the price is confirmed in DMs —
+           the button lives in this shared page, so a new service added
+           later gets it automatically too */
+        document.getElementById("svcKofiBtn").href = KOFI_URL;
         document.getElementById("svcPriceLine").textContent = (s.price === null || s.price === undefined)
           ? "pricing for this service is still being finalized, so ask me in your DM and I will give you an exact quote before anything starts."
           : "prices for this service start at $" + s.price + ", and the exact quote for your project is confirmed with you before anything starts.";
@@ -2462,8 +2483,10 @@
       /* ---------- form service detail pages (illustration, rigging, logo, full package) ----------
          one shared detail view driven by FORM_SERVICES: gallery, tier
          picker, includes, add-on price list, and a request form with a
-         live itemized total. the form only builds a summary for the
-         visitor to copy and DM to Vivi herself; nothing is sent. */
+         live itemized total. sending the form emails the order to
+         Vivi via Web3Forms, then the client continues to the shared
+         Ko-fi listing (KOFI_URL) to pay — the same flow as model art,
+         so every service added here is wired to Ko-fi automatically. */
       var fdId = "illustration";
       var fdState = null;
 
@@ -2672,7 +2695,14 @@
         }
         document.getElementById("fdImportant").innerHTML = (c.important || []).map(function (i) { return "<li>" + i + "</li>"; }).join("");
         document.getElementById("fdFormTitle").textContent = "request " + s.name;
-        document.getElementById("fdSubmit").textContent = c.submitLabel;
+        /* every form service uses the same send + pay step as model art:
+           the order is emailed to Vivi, then the client continues to the
+           one shared Ko-fi listing — so a new form service added to
+           FORM_SERVICES is wired to Ko-fi automatically */
+        document.getElementById("fdSubmit").textContent = "send request & continue to payment";
+        document.getElementById("fdKofiBtn").href = KOFI_URL;
+        document.getElementById("fdKofiBtn").style.display = "none";
+        document.getElementById("fdSendStatus").textContent = "";
         document.getElementById("fdSummaryTitle").textContent = c.summaryTitle;
         document.getElementById("fdTos").checked = false;
         document.getElementById("f-fdtos").classList.remove("invalid");
@@ -2804,7 +2834,76 @@
           var box = document.getElementById("fdSummaryBox");
           box.classList.add("show");
           document.getElementById("fdCopyOk").style.display = "none";
+          var fdStatusEl = document.getElementById("fdSendStatus");
+          var fdKofiBtn = document.getElementById("fdKofiBtn");
+          var fdSubmitBtn = document.getElementById("fdSubmit");
+          fdKofiBtn.href = KOFI_URL;
+          fdKofiBtn.style.display = "none";
+          fdStatusEl.className = "send-status";
+          fdStatusEl.textContent = "sending your order to my inbox…";
+          fdSubmitBtn.disabled = true;
+          fdSubmitBtn.textContent = "sending…";
           box.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          /* same order flow as model art, shared by every form service:
+             the order goes to Vivi's inbox via Web3Forms, then the
+             client continues to the one Ko-fi listing to pay */
+          var fdPayload = {
+            access_key: WEB3FORMS_KEY,
+            subject: "New Order: " + s.name + " — " + fdVal("name"),
+            from_name: "Vivi Commission Website",
+            "Name / username": fdVal("name"),
+            "Estimated total": fmtUSD(t.total),
+            "Full request summary": lines.join("\n"),
+            botcheck: ""
+          };
+          if (c.contactMode === "emailSocial") {
+            fdPayload["Email"] = fdVal("email");
+            fdPayload["Socials"] = fdVal("social") || "not specified";
+          } else {
+            fdPayload["Contact"] = fdVal("contact");
+          }
+          fdPayload[c.tierWord] = t.tier.name + " (" + fmtUSD(t.tier.price) + ")";
+          if (addonLines.length) fdPayload["Add-ons"] = addonLines.join("\n");
+          function fdSendDone(sent, detail) {
+            fdSubmitBtn.disabled = false;
+            fdSubmitBtn.textContent = "send request & continue to payment";
+            if (sent) {
+              fdStatusEl.className = "send-status ok";
+              fdStatusEl.textContent = "your order is in my inbox ✓ next step: complete your payment on Ko-fi — opening it for you now. if it doesn't open, tap the button below.";
+              fdKofiBtn.style.display = "inline-flex";
+              setTimeout(function () { window.open(KOFI_URL, "_blank", "noopener"); }, 1200);
+            } else {
+              fdStatusEl.className = "send-status err";
+              fdStatusEl.textContent = "hmm, the order couldn't be sent just now. no worries — copy the summary below and DM it to me on X (@greenvielle or @greenvielle2nd) and we'll take it from there.";
+              if (detail) {
+                var det = document.createElement("span");
+                det.className = "send-detail";
+                det.textContent = "send detail: " + detail + " — if you DM me, a screenshot of this helps me fix it faster.";
+                fdStatusEl.appendChild(det);
+                if (window.console && console.error) console.error("Web3Forms send failed:", detail);
+              }
+            }
+          }
+          if (window.fetch) {
+            fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", "Accept": "application/json" },
+              body: JSON.stringify(fdPayload)
+            }).then(function (res) {
+                return res.json().catch(function () { return {}; }).then(function (data) {
+                  return { status: res.status, data: data };
+                });
+              })
+              .then(function (r) {
+                if (r.data && r.data.success) { fdSendDone(true); }
+                else {
+                  var msg = (r.data && r.data.message) ? String(r.data.message) : "";
+                  fdSendDone(false, "HTTP " + r.status + (msg ? " — " + msg : " — no message from the mail service"));
+                }
+              })
+              .catch(function (err) { fdSendDone(false, "network error" + (err && err.message ? " — " + err.message : "")); });
+          } else { fdSendDone(false, "this browser doesn't support sending the form directly"); }
         });
         document.getElementById("fdCopyBtn").addEventListener("click", function () {
           var text = document.getElementById("fdSummaryText").textContent;
@@ -3004,6 +3103,7 @@
           var statusEl = document.getElementById("maSendStatus");
           var kofiBtn = document.getElementById("maKofiBtn");
           var submitBtn = document.getElementById("maSubmit");
+          kofiBtn.href = KOFI_URL;
           kofiBtn.style.display = "none";
           statusEl.className = "send-status";
           statusEl.textContent = "sending your order to my inbox…";
@@ -3014,7 +3114,7 @@
           /* the order goes to Vivi's inbox via Web3Forms, then the
              client continues to the Ko-fi listing to pay */
           var payload = {
-            access_key: "3151acb2-9f81-4dd8-b73b-28c514f93298",
+            access_key: WEB3FORMS_KEY,
             subject: "New Order: Live2D Model Art — " + name,
             from_name: "Vivi Commission Website",
             "Name / username": name,
@@ -3035,7 +3135,7 @@
               statusEl.className = "send-status ok";
               statusEl.textContent = "your order is in my inbox ✓ next step: complete your payment on Ko-fi — opening it for you now. if it doesn't open, tap the button below.";
               kofiBtn.style.display = "inline-flex";
-              setTimeout(function () { window.open("https://ko-fi.com/c/84800e167f", "_blank", "noopener"); }, 1200);
+              setTimeout(function () { window.open(KOFI_URL, "_blank", "noopener"); }, 1200);
             } else {
               statusEl.className = "send-status err";
               statusEl.textContent = "hmm, the order couldn't be sent just now. no worries — copy the summary below and DM it to me on X (@greenvielle or @greenvielle2nd) and we'll take it from there.";
