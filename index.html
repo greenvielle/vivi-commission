@@ -682,6 +682,20 @@
       .cta-band .wrap { position: relative; z-index: 1; }
       .cta-band h2 { font-size: clamp(30px, 4.5vw, 44px); font-weight: 800; text-transform: uppercase; line-height: 1; }
       .cta-band p { color: var(--ink-soft); margin: 16px auto 28px; max-width: 34rem; font-size: clamp(15.5px, 1vw + 13px, 17.5px); line-height: 1.7; }
+      /* commission progress tracker on Home, linking out to the public Trello board */
+      .track-box {
+        max-width: 42rem; margin: 46px auto 0; background: var(--card);
+        border: 1.5px solid var(--line); border-radius: 26px;
+        padding: clamp(22px, 3vw, 30px); box-shadow: var(--shadow); position: relative;
+      }
+      .track-box::after { content: ""; position: absolute; inset: 7px; border: 1.5px dashed color-mix(in srgb, var(--forest) 10%, transparent); border-radius: 20px; pointer-events: none; }
+      .track-box h3 { font-size: clamp(20px, 2.6vw, 24px); font-weight: 800; line-height: 1.15; position: relative; z-index: 1; }
+      .track-box p { margin: 10px auto 18px; font-size: 15px; position: relative; z-index: 1; }
+      .track-flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px; margin: 0 auto 22px; position: relative; z-index: 1; }
+      .track-chip { background: var(--sage); color: var(--forest); font-family: "Poppins", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.02em; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.7); white-space: nowrap; }
+      .track-chip:last-child { background: var(--peach-soft); }
+      .track-arrow { color: var(--ink-soft); font-size: 13px; line-height: 1; }
+      .track-box .btn { position: relative; z-index: 1; }
 
       /* ---------- responsive: tablet ---------- */
       @media (max-width: 1024px) {
@@ -1056,6 +1070,12 @@
               </div>
             </div>
             <div class="acc-item">
+              <button class="acc-btn" aria-expanded="false">how can I check the progress of my commission? <span class="chev">▾</span></button>
+              <div class="acc-panel">
+                <p>on my <a href="https://trello.com/b/9FW8PAzE/commission-vivi" target="_blank" rel="noopener">public commission board</a>. every order gets its own card there, and I move it along as I work: New Order, Sketch Phase, Lineart, Flat Colours, Rendering, and finally Finished/In Review!. find your card and you can see exactly where your commission is, any time you like. and of course, you're always welcome to DM me for an update in person too.</p>
+              </div>
+            </div>
+            <div class="acc-item">
               <button class="acc-btn" aria-expanded="false">does sending a request mean my commission is accepted? <span class="chev">▾</span></button>
               <div class="acc-panel">
                 <p>nope, not automatically. and that's honestly a good thing. I review every request myself to make sure the project fits my schedule and my skills. you'll hear back either way, and nothing is owed until we've both confirmed the project.</p>
@@ -1311,6 +1331,19 @@
           <h2>let's create something that feels like you.</h2>
           <p>have another look at the services, pick the one that fits, and send your request from there. either way, I'm really glad you're here.</p>
           <a class="btn btn-primary js-services-link" href="#services">start a request</a>
+          <div class="track-box">
+            <h3>already ordered? follow your commission</h3>
+            <p>every commission lives on my public progress board. your order gets its own card, and I move it along as I work on it, so you can see exactly where it is at any time.</p>
+            <div class="track-flow">
+              <span class="track-chip">New Order</span><span class="track-arrow" aria-hidden="true">→</span>
+              <span class="track-chip">Sketch Phase</span><span class="track-arrow" aria-hidden="true">→</span>
+              <span class="track-chip">Lineart</span><span class="track-arrow" aria-hidden="true">→</span>
+              <span class="track-chip">Flat Colours</span><span class="track-arrow" aria-hidden="true">→</span>
+              <span class="track-chip">Rendering</span><span class="track-arrow" aria-hidden="true">→</span>
+              <span class="track-chip">Finished / In Review!</span>
+            </div>
+            <a class="btn btn-ghost" href="https://trello.com/b/9FW8PAzE/commission-vivi" target="_blank" rel="noopener">track your commission</a>
+          </div>
         </div>
       </section>
     </main>
