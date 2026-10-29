@@ -807,6 +807,14 @@
       .discord-find-btn { text-transform: none; letter-spacing: 0.02em; }
       .discord-find-link { color: var(--forest); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
       .discord-find-link:hover { color: var(--leaf); }
+      .brand-icon { width: 15px; height: 15px; flex: none; fill: currentColor; display: block; }
+      .brand-icon-discord { width: 19px; height: 19px; }
+      .social-link { display: inline-flex; align-items: center; gap: 8px; }
+      .social-link-icon-only { padding: 3px 0; }
+      .social-link-icon-only .brand-icon-discord { width: 21px; height: 21px; }
+      #faq-contact .contact-links .btn { gap: 8px; }
+      #faq-contact .contact-links .btn-icon-only { padding-left: 18px; padding-right: 18px; }
+      #faq-contact .contact-links .btn-icon-only .brand-icon-discord { width: 20px; height: 20px; }
       .foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 48px; }
       footer ul { list-style: none; margin: 0; padding: 0; }
       footer li { margin-bottom: 11px; font-size: 16.5px; }
@@ -1161,9 +1169,9 @@
               </div>
             </div>
             <div class="contact-links">
-              <a class="btn btn-primary btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener">@greenvielle on X</a>
-              <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle2nd" target="_blank" rel="noopener">@greenvielle2nd on X</a>
-              <a class="btn btn-ghost btn-small" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">Discord</a>
+              <a class="btn btn-primary btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener" aria-label="X profile @greenvielle"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>(@greenvielle)</span></a>
+              <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle2nd" target="_blank" rel="noopener" aria-label="X profile @greenvielle2nd"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>(@greenvielle2nd)</span></a>
+              <a class="btn btn-ghost btn-small btn-icon-only" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener" aria-label="Discord profile of Vivi"><svg class="brand-icon brand-icon-discord" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03ZM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg></a>
             </div>
           </div>
         </div>
@@ -1530,9 +1538,9 @@
           <div>
             <h3>Find Vivi</h3>
             <ul>
-              <li><a href="https://x.com/greenvielle" target="_blank" rel="noopener">X / Twitter (@greenvielle)</a></li>
-              <li><a href="https://x.com/greenvielle2nd" target="_blank" rel="noopener">X / Twitter (@greenvielle2nd)</a></li>
-              <li><a href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">Discord</a></li>
+              <li><a class="social-link" href="https://x.com/greenvielle" target="_blank" rel="noopener" aria-label="X profile @greenvielle"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>(@greenvielle)</span></a></li>
+              <li><a class="social-link" href="https://x.com/greenvielle2nd" target="_blank" rel="noopener" aria-label="X profile @greenvielle2nd"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"/></svg><span>(@greenvielle2nd)</span></a></li>
+              <li><a class="social-link social-link-icon-only" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener" aria-label="Discord profile of Vivi"><svg class="brand-icon brand-icon-discord" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03ZM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg></a></li>
             </ul>
             <p style="opacity: 0.85; font-size: 14.5px; margin-top: 12px;">I arrange commissions through X DMs after I've reviewed your request. Please watch out for impersonator accounts, these two are my only official ones.</p>
           </div>
