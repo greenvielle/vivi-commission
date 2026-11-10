@@ -762,6 +762,60 @@
       .pick-change:hover { color: var(--leaf); }
       .pick-change:focus-visible { outline: 2px dashed var(--forest); outline-offset: 2px; }
 
+      /* ---------- request form steps (VGen-style clarity) ----------
+         each request form is split into numbered steps: a plain
+         heading, a one-line helper saying what to write and why,
+         then the fields. price chips sit right on each option, the
+         references are add-a-link rows, and the send button stays
+         locked until the required fields are done. --------------- */
+      .fsteps { display: flex; flex-direction: column; gap: 22px; }
+      .fstep { background: var(--paper); border: 1.5px solid var(--line-soft); border-radius: 22px; padding: 24px; position: relative; z-index: 1; }
+      .fstep-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+      .fstep-num { flex: none; width: 38px; height: 38px; border-radius: 12px; background: var(--forest); color: var(--accent-ink); display: grid; place-items: center; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 19px; line-height: 1; box-shadow: 0 0 0 3px var(--sage-soft), 0 5px 10px rgba(62,73,58,0.16); }
+      .fstep-head h5 { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 21px; line-height: 1.2; color: var(--forest); margin: 2px 0 3px; }
+      .fstep-head p { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+      .radio-opt { align-items: flex-start; }
+      .radio-opt input { margin-top: 3px; }
+      .r-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+      .r-name { font-weight: 600; color: var(--forest); font-size: 16px; line-height: 1.35; }
+      .r-desc { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+      .r-price { flex: none; font-family: "Poppins", sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.02em; color: var(--forest); background: var(--sage); border: 1px solid rgba(255,255,255,0.7); padding: 4px 11px; border-radius: 999px; white-space: nowrap; margin-top: 1px; }
+      .r-price.free { background: var(--sage-soft); color: var(--ink-soft); font-weight: 600; }
+      .group-hint { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); margin-top: -2px; }
+      /* add-a-link reference rows: one URL + one name per row */
+      .link-rows { display: flex; flex-direction: column; gap: 10px; }
+      .link-row { display: grid; grid-template-columns: 1.35fr 1fr 46px; gap: 10px; align-items: start; }
+      .link-remove {
+        width: 46px; height: 55px; border-radius: 12px; border: 1.5px solid var(--line);
+        background: var(--card); color: var(--ink-soft); font-size: 20px; line-height: 1;
+        cursor: pointer; touch-action: manipulation; display: grid; place-items: center;
+        transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+      }
+      .link-remove:hover:not(:disabled) { background: var(--sage); border-color: var(--forest); color: var(--forest); }
+      .link-remove:disabled { opacity: 0.32; cursor: default; }
+      .link-remove:focus-visible { outline: 2px dashed var(--forest); outline-offset: 2px; }
+      .add-link-btn {
+        align-self: flex-start; display: inline-flex; align-items: center; gap: 6px;
+        font-family: "Poppins", sans-serif; font-weight: 600; font-size: 14.5px; letter-spacing: 0.02em;
+        color: var(--forest); background: transparent; border: 1.5px dashed var(--forest); border-radius: 10px;
+        padding: 10px 16px; cursor: pointer; touch-action: manipulation;
+        transition: background 0.15s ease, transform 0.2s var(--bounce);
+      }
+      .add-link-btn:hover { background: var(--sage-soft); transform: translateY(-1px); }
+      .add-link-btn:focus-visible { outline: 2px dashed var(--forest); outline-offset: 2px; }
+      .norush { display: inline-flex; align-items: center; gap: 9px; font-family: "Poppins", sans-serif; font-size: 15px; font-weight: 500; color: var(--ink); cursor: pointer; }
+      .norush input { width: 20px; height: 20px; accent-color: var(--forest); margin: 0; flex: none; }
+      .field input:disabled { opacity: 0.45; }
+      .btn:disabled { opacity: 0.45; cursor: default; box-shadow: none; }
+      .btn:disabled:hover { transform: none; background: var(--forest); }
+      .ready-hint { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+      .ready-hint.ready { color: var(--forest); font-weight: 600; }
+      @media (max-width: 620px) {
+        .fstep { padding: 20px 16px; }
+        .link-row { grid-template-columns: 1fr 46px; }
+        .link-row .lr-name { grid-column: 1 / -1; }
+      }
+
       /* ---------- model art detail view ---------- */
       #modelart-detail { display: none; }
       #panel-services.modelart-mode > section { display: none; }
@@ -1285,31 +1339,41 @@
             </div>
             <div class="rv-card">
               <h3 id="fdFormTitle">Request This Service</h3>
-              <p class="rv-note" style="margin-bottom: 20px;">When you send this form, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment, just enter the total from your request there. If you'd like to talk through your project first, my DMs on X are always open.</p>
-              <p class="rv-note" style="margin-top: -12px; margin-bottom: 20px;">You can also <a class="discord-find-link" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">find me on discord</a> if you prefer to chat there first.</p>
+              <p class="rv-note" style="margin-bottom: 20px;">Here's how requesting works: fill this in with as much detail as you can, in five short steps, then send it. I review every request personally and confirm the exact price and timing with you before any work starts, so sending a request never locks you in. When you send it, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment, just enter the total from your request there.</p>
+              <p class="rv-note" style="margin-top: -12px; margin-bottom: 20px;">If you'd like to talk through your project first, my DMs on X are always open, and you can also <a class="discord-find-link" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">find me on discord</a> if you prefer to chat there first.</p>
               <form id="fdForm" novalidate>
-                <div class="form-grid" id="fdFields"></div>
-                <div class="form-grid" style="margin-top: 18px;">
-                  <div class="field full">
-                    <div class="total-box" aria-live="polite">
-                      <span class="from">Your Estimated Total</span>
-                      <div class="total-lines" id="fdTotalLines"></div>
-                      <div class="total-amount" id="fdTotalAmount">$0</div>
-                      <p class="total-note">An estimate from the options you picked, and this is the amount you'll pay on Ko-fi right after sending your request.</p>
+                <div class="fsteps" id="fdFields"></div>
+                <div class="fstep" style="margin-top: 22px;">
+                  <div class="fstep-head">
+                    <span class="fstep-num">5</span>
+                    <div>
+                      <h5>Your estimate &amp; send</h5>
+                      <p>A quick look at the maths before you send. This total is an estimate from the options you picked; I review every request personally and confirm the final price and timing with you.</p>
                     </div>
                   </div>
-                  <div class="field full" id="f-fdtos">
-                    <div class="tos-check">
-                      <input id="fdTos" name="fdtos" type="checkbox" />
-                      <label for="fdTos">I've read the <a href="#guide">Commission Guide &amp; Terms</a> and I understand that a request is reviewed personally, so it's not an automatic booking. <span class="req">*</span></label>
+                  <div class="form-grid">
+                    <div class="field full">
+                      <div class="total-box" aria-live="polite">
+                        <span class="from">Your Estimated Total</span>
+                        <div class="total-lines" id="fdTotalLines"></div>
+                        <div class="total-amount" id="fdTotalAmount">$0</div>
+                        <p class="total-note">An estimate from the options you picked, and this is the amount you'll pay on Ko-fi right after sending your request.</p>
+                      </div>
                     </div>
-                    <span class="err">Please confirm you've read the terms</span>
-                  </div>
-                  <div class="field full">
-                    <p class="form-note">Quick note: sending this form emails your order details to me so I can start on your project. Nothing is stored on this page itself.</p>
-                  </div>
-                  <div class="field full">
-                    <button type="submit" class="btn btn-primary" id="fdSubmit">Build My Request</button>
+                    <div class="field full" id="f-fdtos">
+                      <div class="tos-check">
+                        <input id="fdTos" name="fdtos" type="checkbox" />
+                        <label for="fdTos">I've read the <a href="#guide">Commission Guide &amp; Terms</a> and I understand that submitting this request does not guarantee my commission is accepted, because every request is reviewed personally first. <span class="req">*</span></label>
+                      </div>
+                      <span class="err">Please confirm you've read the terms</span>
+                    </div>
+                    <div class="field full">
+                      <p class="form-note">Quick note: sending this form emails your order details to me so I can start on your project. Nothing is stored on this page itself.</p>
+                    </div>
+                    <div class="field full">
+                      <button type="submit" class="btn btn-primary" id="fdSubmit" disabled>Send Request &amp; Continue to Payment</button>
+                      <span class="ready-hint" id="fdReadyHint">The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.</span>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -1370,66 +1434,134 @@
             </div>
             <div class="rv-card">
               <h3>Request Live2D Model Art</h3>
-              <p class="rv-note" style="margin-bottom: 20px;">This form is only for model art, so it asks the model art questions. When you send it, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment.</p>
+              <p class="rv-note" style="margin-bottom: 20px;">This form is only for model art, so it asks the model art questions. Here's how requesting works: fill this in with as much detail as you can, in five short steps, then send it. I review every request personally and confirm the exact price and timing with you before any work starts, so sending a request never locks you in. When you send it, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment.</p>
               <p class="rv-note" style="margin-top: -12px; margin-bottom: 20px;">You can also <a class="discord-find-link" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">find me on discord</a> if you prefer to chat there first.</p>
               <form id="maForm" novalidate>
-                <div class="form-grid">
-                  <div class="field" id="f-maname">
-                    <label for="maName">Your name or username <span class="req">*</span></label>
-                    <input id="maName" name="maname" type="text" autocomplete="name" placeholder="E.g. mintyVT" />
-                    <span class="err">Please add your name or username</span>
-                  </div>
-                  <div class="field" id="f-macontact">
-                    <label for="maContact">Email or preferred contact <span class="req">*</span></label>
-                    <input id="maContact" name="macontact" type="text" autocomplete="email" placeholder="Email, or your X / Discord handle" />
-                    <span class="hint">Where I can reply to you about this request.</span>
-                    <span class="err">Please add a way to reach you</span>
-                  </div>
-                  <div class="field full">
-                    <label>Your tier <span class="opt">(picked above, shown here so you don't have to choose twice)</span></label>
-                    <div class="pick-summary" aria-live="polite">
-                      <span><span class="ps-name" id="maPickName">Bust Up</span></span>
-                      <span class="ps-price" id="maPickPrice">$105</span>
-                      <button type="button" class="pick-change" id="maPickChange">Change ↑</button>
+                <div class="fsteps">
+                  <div class="fstep">
+                    <div class="fstep-head">
+                      <span class="fstep-num">1</span>
+                      <div>
+                        <h5>About you</h5>
+                        <p>Your name, plus where I can reply. Email is needed; your Discord and X are recommended, so I can find your channel and say hi back.</p>
+                      </div>
                     </div>
-                    <span class="hint">Want a different tier? Tap another card in the picker above and this updates automatically.</span>
-                  </div>
-                  <div class="field full">
-                    <label>Add-ons <span class="opt">(optional, use the + and − buttons to set how many)</span></label>
-                    <div class="addon-grid" id="maAddons"></div>
-                  </div>
-                  <div class="field full">
-                    <label for="maRefs">Character references / links <span class="opt">(optional)</span></label>
-                    <textarea id="maRefs" name="marefs" rows="3" placeholder="Links to your character references, one per line works great"></textarea>
-                  </div>
-                  <div class="field">
-                    <label for="maDeadline">Preferred deadline <span class="opt">(optional)</span></label>
-                    <input id="maDeadline" name="madeadline" type="text" placeholder="E.g. mid-December, or 'no rush'" />
-                  </div>
-                  <div class="field">
-                    <label for="maNotes">Anything else? <span class="opt">(optional)</span></label>
-                    <input id="maNotes" name="manotes" type="text" placeholder="Questions, special requests, anything else" />
-                  </div>
-                  <div class="field full">
-                    <div class="total-box" aria-live="polite">
-                      <span class="from">Your Estimated Total</span>
-                      <div class="total-lines" id="maTotalLines"></div>
-                      <div class="total-amount" id="maTotalAmount">$105</div>
-                      <p class="total-note">An estimate from the tier and add-ons you picked, and this is the amount you'll pay on Ko-fi right after sending your request.</p>
+                    <div class="form-grid">
+                      <div class="field" id="f-maname">
+                        <label for="maName">Your name <span class="req">*</span></label>
+                        <input id="maName" name="maname" type="text" autocomplete="name" placeholder="Name / nickname" />
+                        <span class="err">Please add your name or nickname</span>
+                      </div>
+                      <div class="field" id="f-maemail">
+                        <label for="maEmail">Your email <span class="req">*</span></label>
+                        <input id="maEmail" name="maemail" type="text" autocomplete="email" placeholder="your@email.com" />
+                        <span class="hint">Where I can reply to you about this request.</span>
+                        <span class="err">Please add your email</span>
+                      </div>
+                      <div class="field">
+                        <label for="maDiscord">Discord <span class="opt">(recommended)</span></label>
+                        <input id="maDiscord" name="madiscord" type="text" placeholder="Username" />
+                        <span class="hint">The fastest way to chat about your model.</span>
+                      </div>
+                      <div class="field">
+                        <label for="maX">X / Twitter <span class="opt">(recommended)</span></label>
+                        <input id="maX" name="max" type="text" placeholder="twitter.com/ username" />
+                        <span class="hint">So I can find your channel.</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="field full" id="f-matos">
-                    <div class="tos-check">
-                      <input id="maTos" name="matos" type="checkbox" />
-                      <label for="maTos">I've read the <a href="#guide">Commission Guide &amp; Terms</a> and I understand that a request is reviewed personally, so it's not an automatic booking. <span class="req">*</span></label>
+                  <div class="fstep">
+                    <div class="fstep-head">
+                      <span class="fstep-num">2</span>
+                      <div>
+                        <h5>Your pick &amp; add-ons</h5>
+                        <p>Your tier from the picker above, plus any extras. The price sits right on each add-on, and your total updates as you go.</p>
+                      </div>
                     </div>
-                    <span class="err">Please confirm you've read the terms</span>
+                    <div class="form-grid">
+                      <div class="field full">
+                        <label>Your tier <span class="opt">(picked above, shown here so you don't have to choose twice)</span></label>
+                        <div class="pick-summary" aria-live="polite">
+                          <span><span class="ps-name" id="maPickName">Bust Up</span></span>
+                          <span class="ps-price" id="maPickPrice">$105</span>
+                          <button type="button" class="pick-change" id="maPickChange">Change ↑</button>
+                        </div>
+                        <span class="hint">Want a different tier? Tap another card in the picker above and this updates automatically.</span>
+                      </div>
+                      <div class="field full">
+                        <label>Add-ons <span class="opt">(optional, use the + and − buttons to set how many)</span></label>
+                        <div class="addon-grid" id="maAddons"></div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="field full">
-                    <p class="form-note">Quick note: sending this form emails your order details to me so I can start on your model. Nothing is stored on this page itself.</p>
+                  <div class="fstep">
+                    <div class="fstep-head">
+                      <span class="fstep-num">3</span>
+                      <div>
+                        <h5>References &amp; files</h5>
+                        <p>Character reference sheets, mood boards, samples of poses or expressions: add each one as its own link, with a name so I know what I'm opening. Links are perfect, no uploads needed.</p>
+                      </div>
+                    </div>
+                    <div class="form-grid">
+                      <div class="field full">
+                        <label>Character references / links <span class="opt">(optional)</span></label>
+                        <div class="link-rows" id="maLinks"></div>
+                        <button type="button" class="add-link-btn" id="maAddLink">+ Add another link</button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="field full">
-                    <button type="submit" class="btn btn-primary" id="maSubmit">Send Request &amp; Continue to Payment</button>
+                  <div class="fstep">
+                    <div class="fstep-head">
+                      <span class="fstep-num">4</span>
+                      <div>
+                        <h5>Deadline &amp; extra info</h5>
+                        <p>Your preferred completion date helps me plan. It's a preference we confirm together, not a guaranteed delivery date. Everything else about your model goes in extra info.</p>
+                      </div>
+                    </div>
+                    <div class="form-grid">
+                      <div class="field">
+                        <label for="maDate">Preferred deadline <span class="opt">(optional)</span></label>
+                        <input id="maDate" name="madate" type="date" />
+                        <label class="norush"><input id="maNoRush" name="manorush" type="checkbox" /> No rush, take your time</label>
+                      </div>
+                      <div class="field">
+                        <label for="maNotes">Extra info <span class="opt">(optional)</span></label>
+                        <textarea id="maNotes" name="manotes" rows="3" placeholder="Pose, traits, questions, special requests, anything else"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fstep">
+                    <div class="fstep-head">
+                      <span class="fstep-num">5</span>
+                      <div>
+                        <h5>Your estimate &amp; send</h5>
+                        <p>A quick look at the maths before you send. This total is an estimate from the tier and add-ons you picked; I review every request personally and confirm the final price and timing with you.</p>
+                      </div>
+                    </div>
+                    <div class="form-grid">
+                      <div class="field full">
+                        <div class="total-box" aria-live="polite">
+                          <span class="from">Your Estimated Total</span>
+                          <div class="total-lines" id="maTotalLines"></div>
+                          <div class="total-amount" id="maTotalAmount">$105</div>
+                          <p class="total-note">An estimate from the tier and add-ons you picked, and this is the amount you'll pay on Ko-fi right after sending your request.</p>
+                        </div>
+                      </div>
+                      <div class="field full" id="f-matos">
+                        <div class="tos-check">
+                          <input id="maTos" name="matos" type="checkbox" />
+                          <label for="maTos">I've read the <a href="#guide">Commission Guide &amp; Terms</a> and I understand that submitting this request does not guarantee my commission is accepted, because every request is reviewed personally first. <span class="req">*</span></label>
+                        </div>
+                        <span class="err">Please confirm you've read the terms</span>
+                      </div>
+                      <div class="field full">
+                        <p class="form-note">Quick note: sending this form emails your order details to me so I can start on your model. Nothing is stored on this page itself.</p>
+                      </div>
+                      <div class="field full">
+                        <button type="submit" class="btn btn-primary" id="maSubmit" disabled>Send Request &amp; Continue to Payment</button>
+                        <span class="ready-hint" id="maReadyHint">The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -2013,7 +2145,6 @@
           ]
         },
         "logo": {
-          contactMode: "emailSocial",
           tierTitle: "Pick Your Logo Style",
           tierWord: "Logo",
           submitLabel: "Build My Logo Request",
@@ -3047,14 +3178,74 @@
         document.getElementById("fdTotalAmount").textContent = fmtUSD(t.total);
       }
 
+      /* fields that collect references the VGen way: add-a-link rows
+         (a URL plus a name for each link) instead of one big textarea */
+      var FD_LINK_FIELDS = { refs: true, psd: true };
+      var FD_LINK_HINTS = {
+        refs: "Character reference sheets, mood boards, samples of poses or expressions: add each one as its own link, with a name so I know what I'm opening.",
+        psd: "Add the link to your separated model PSD (Google Drive or Dropbox) so I can check it's rig-ready."
+      };
+      function fdLinkRow(first) {
+        return '<div class="link-row"><input class="lr-url" type="text" inputmode="url" placeholder="https://" aria-label="Link URL" /><input class="lr-name" type="text" placeholder="Name, e.g. Character sheet" aria-label="What this link is" /><button type="button" class="link-remove" data-fd-rmlink aria-label="Remove this link"' + (first ? " disabled" : "") + ">×</button></div>";
+      }
+      function fdLinksHTML(f) {
+        var req = f.required ? ' <span class="req">*</span>' : "";
+        var opt = f.optional ? ' <span class="opt">(optional)</span>' : "";
+        var err = f.err ? '<span class="err">' + f.err + "</span>" : "";
+        var hint = FD_LINK_HINTS[f.id] || "";
+        if (fdId === "logo" && f.id === "refs") hint = "Logos you like, your character, or your current branding: add each one as its own link, with a name so I know what I'm opening.";
+        return '<div class="field full" id="f-fd-' + f.id + '"><label>' + f.label + req + opt + "</label>" +
+          '<div class="link-rows" id="fdLinks-' + f.id + '">' + fdLinkRow(true) + "</div>" +
+          '<button type="button" class="add-link-btn" data-fd-addlink="' + f.id + '">+ Add another link</button>' +
+          (hint ? '<span class="hint">' + hint + "</span>" : "") + err + "</div>";
+      }
+      /* the deadline is a real date picker plus a "no rush" tick,
+         never free text, so Vivi always gets a date she can plan with */
+      function fdDeadlineHTML(f) {
+        return '<div class="field" id="f-fd-' + f.id + '"><label for="fdF-' + f.id + '">' + f.label + ' <span class="opt">(optional)</span></label>' +
+          '<input id="fdF-' + f.id + '" type="date" />' +
+          '<label class="norush"><input type="checkbox" id="fdNoRush-' + f.id + '" /> No rush, take your time</label>' +
+          '<span class="hint">Your preferred completion date. It helps me plan, and we confirm the real timeline together before anything starts.</span></div>';
+      }
+      /* one place that reads a field's value, whatever kind it is:
+         link rows join into "Name — URL" lines, the deadline reads
+         its date picker (or "no rush"), checks read yes / no */
+      function fdFieldVal(f) {
+        if (!f) return "";
+        if (f.type === "check") {
+          var cb = document.getElementById("fdF-" + f.id);
+          return cb && cb.checked ? "yes" : "no";
+        }
+        if (FD_LINK_FIELDS[f.id]) {
+          var box = document.getElementById("fdLinks-" + f.id);
+          if (!box) return "";
+          var lines = [];
+          box.querySelectorAll(".link-row").forEach(function (row) {
+            var url = row.querySelector(".lr-url").value.trim();
+            var nm = row.querySelector(".lr-name").value.trim();
+            if (url) lines.push(nm ? nm + " — " + url : url);
+          });
+          return lines.join("\n");
+        }
+        if (f.id === "deadline") {
+          var nr = document.getElementById("fdNoRush-deadline");
+          if (nr && nr.checked) return "no rush";
+          var d = document.getElementById("fdF-deadline");
+          return d ? d.value.trim() : "";
+        }
+        var el = document.getElementById("fdF-" + f.id);
+        return el ? el.value.trim() : "";
+      }
       function fdTextField(f) {
+        if (FD_LINK_FIELDS[f.id]) return fdLinksHTML(f);
+        if (f.id === "deadline") return fdDeadlineHTML(f);
         var req = f.required ? ' <span class="req">*</span>' : "";
         var opt = f.optional ? ' <span class="opt">(optional)</span>' : "";
         var hint = f.hint ? '<span class="hint">' + f.hint + "</span>" : "";
         var err = f.err ? '<span class="err">' + f.err + "</span>" : "";
         var cls = "field" + (f.full ? " full" : "");
         var ctrl;
-        if (f.type === "textarea") {
+        if (f.type === "textarea" || f.id === "notes") {
           ctrl = '<textarea id="fdF-' + f.id + '" rows="3" placeholder="' + (f.placeholder || "") + '"></textarea>';
         } else {
           ctrl = '<input id="fdF-' + f.id + '" type="text" placeholder="' + (f.placeholder || "") + '"' + (f.autocomplete ? ' autocomplete="' + f.autocomplete + '"' : "") + " />";
@@ -3065,12 +3256,29 @@
         return '<div class="field full"><label class="addon-opt"><input type="checkbox" id="fdF-' + f.id + '" /><span class="a-name">' + f.label + "</span></label></div>";
       }
       function fdGroupHTML(g) {
+        /* the price sits right on the option as a chip: the exact
+           +$ / +% for paid options, and "Included" on the free option
+           of the priced choice groups (usage, background), so nobody
+           has to hunt through the description for what things cost */
+        var pricedGroup = (g.id === "license" || g.id === "usage" || g.id === "background");
         var opts = g.options.map(function (o) {
           var price = fdOptPriceLabel(o);
-          var text = o.name + (price ? " (" + price + ")" : "") + (o.desc ? ", " + o.desc : "");
-          return '<label class="radio-opt"><input type="radio" name="fdG-' + g.id + '" value="' + o.id + '"' + (fdState.groups[g.id] === o.id ? " checked" : "") + " /> <span>" + text + "</span></label>";
+          var chip = "";
+          var desc = o.desc || "";
+          if (price) {
+            chip = '<span class="r-price">' + price + "</span>";
+          } else if (pricedGroup) {
+            chip = '<span class="r-price free">Included</span>';
+            desc = desc.replace(/^Included[^,.]*,?\s*/i, "");
+            if (desc) desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+          }
+          return '<label class="radio-opt"><input type="radio" name="fdG-' + g.id + '" value="' + o.id + '"' + (fdState.groups[g.id] === o.id ? " checked" : "") + ' /><span class="r-main"><span class="r-name">' + o.name + "</span>" + (desc ? '<span class="r-desc">' + desc + "</span>" : "") + "</span>" + chip + "</label>";
         }).join("");
-        return '<div class="field full"><label>' + g.label + '</label><div class="radio-stack">' + opts + "</div></div>";
+        var hint = "";
+        if (g.id === "license") hint = '<span class="group-hint">Choose the licenses you need.</span>';
+        else if (g.id === "usage") hint = '<span class="group-hint">Choose how you will be using it.</span>';
+        else if (g.id === "share") hint = '<span class="group-hint">Choose one.</span>';
+        return '<div class="field full"><label>' + g.label + '</label>' + hint + '<div class="radio-stack">' + opts + "</div></div>";
       }
       function fdAddonsHTML(c) {
         var inner = c.addons.map(function (a) {
@@ -3089,37 +3297,57 @@
         }).join("");
         return '<div class="field full"><label>Add-ons <span class="opt">(optional, tick or set what you\'d like)</span></label><div class="addon-grid">' + inner + "</div></div>";
       }
+      function fdStep(num, title, helper, inner) {
+        return '<div class="fstep"><div class="fstep-head"><span class="fstep-num">' + num + '</span><div><h5>' + title + "</h5><p>" + helper + "</p></div></div>" +
+          '<div class="form-grid">' + inner + "</div></div>";
+      }
       function fdRenderFields() {
         var c = fdCfg();
-        var html = fdTextField({ id: "name", label: "Your name or username", required: true, placeholder: "E.g. mintyVT", autocomplete: "name", err: "Please add your name or username" });
-        if (c.contactMode === "emailSocial") {
-          html += fdTextField({ id: "email", label: "Your email", required: true, placeholder: "you@example.com", autocomplete: "email", hint: "Where I can reply to you about this request.", err: "Please add your email" });
-          html += fdTextField({ id: "social", label: "Your socials", optional: true, placeholder: "Your X, Twitch, or other socials", hint: "So I can see your channel and say hi back." });
-        } else {
-          html += fdTextField({ id: "contact", label: "Email or preferred contact", required: true, placeholder: "Email, or your X / Discord handle", autocomplete: "email", hint: "Where I can reply to you about this request.", err: "Please add a way to reach you" });
-        }
-        /* the tier/package is chosen ONCE, in the picker above. the form
-           never asks for it again: it only shows the current pick as a
-           read-only summary that fdSync keeps up to date. */
-        html += '<div class="field full"><label>Your ' + (c.tierWord || "Tier") + ' <span class="opt">(picked above, shown here so you don\'t have to choose twice)</span></label>' +
+        /* step 1: about you. contact is split the VGen way, a required
+           email plus recommended handles, never one combined field */
+        var s1 = fdTextField({ id: "name", label: "Your name", required: true, placeholder: "Name / nickname", autocomplete: "name", err: "Please add your name or nickname" });
+        s1 += fdTextField({ id: "email", label: "Your email", required: true, placeholder: "your@email.com", autocomplete: "email", hint: "Where I can reply to you about this request.", err: "Please add your email" });
+        s1 += fdTextField({ id: "discord", label: "Discord", optional: true, placeholder: "Username", hint: "Recommended, the fastest way to chat about your project." });
+        s1 += fdTextField({ id: "x", label: "X / Twitter", optional: true, placeholder: "twitter.com/ username", hint: "Recommended, so I can find your channel." });
+        /* step 2: the pick + every priced choice, in the service's own
+           layout order. the tier/package is chosen ONCE, in the picker
+           above; the form only shows it as a read-only summary. */
+        var s2 = '<div class="field full"><label>Your ' + (c.tierWord || "Tier") + ' <span class="opt">(picked above, shown here so you don\'t have to choose twice)</span></label>' +
           '<div class="pick-summary" aria-live="polite"><span class="ps-name" id="fdPickName"></span><span class="ps-price" id="fdPickPrice"></span>' +
           '<button type="button" class="pick-change" id="fdPickChange">Change ↑</button></div>' +
           '<span class="hint">Want a different one? Tap another card in the picker above and this updates automatically.</span></div>';
+        /* steps 3 and 4 collect their fields while walking the same
+           layout once: reference-style fields go to step 3, everything
+           else written (deadline, extra info, service-specific fields)
+           goes to step 4, each keeping its layout order */
+        var s3 = "", s4 = "", seenDeadline = false;
         c.layout.forEach(function (tok) {
           var parts = tok.split(":");
           var kind = parts[0], key = parts[1];
           if (kind === "group") {
             var g = c.groups.filter(function (x) { return x.id === key; })[0];
-            if (g) html += fdGroupHTML(g);
+            if (g) s2 += fdGroupHTML(g);
           } else if (kind === "field") {
             var f = c.fields.filter(function (x) { return x.id === key; })[0];
-            if (f) html += (f.type === "check") ? fdCheckField(f) : fdTextField(f);
+            if (!f) return;
+            if (FD_LINK_FIELDS[f.id]) s3 += fdTextField(f);
+            else {
+              if (f.id === "deadline") seenDeadline = true;
+              s4 += (f.type === "check") ? fdCheckField(f) : fdTextField(f);
+            }
           } else if (kind === "addons") {
-            if (c.addons && c.addons.length) html += fdAddonsHTML(c);
+            if (c.addons && c.addons.length) s2 += fdAddonsHTML(c);
           } else if (kind === "note") {
-            if (c.notes && c.notes[key]) html += '<div class="field full"><p class="form-note">' + c.notes[key] + "</p></div>";
+            if (c.notes && c.notes[key]) s2 += '<div class="field full"><p class="form-note">' + c.notes[key] + "</p></div>";
           }
         });
+        /* every request asks about a deadline, VGen-style: services
+           whose own fields don't include one get the standard picker */
+        if (!seenDeadline) s4 = fdDeadlineHTML({ id: "deadline", label: "Preferred deadline" }) + s4;
+        var html = fdStep(1, "About you", "Your name, plus where I can reply. Email is needed; your Discord and X are recommended, so I can find your channel and say hi back.", s1);
+        html += fdStep(2, "Your pick &amp; options", "Your " + (c.tierWord || "tier").toLowerCase() + " from the picker above, then how you'll use it and any extras. The price sits right on each option, and your total updates as you go.", s2);
+        if (s3) html += fdStep(3, "References &amp; files", "Character reference sheets, mood boards, samples of poses or expressions: add each one as its own link, with a name so I know what I'm opening. Links are perfect, no uploads needed.", s3);
+        html += fdStep(4, "Deadline &amp; extra info", "Your preferred completion date helps me plan. It's a preference we confirm together, not a guaranteed delivery date. Everything else about your project goes in extra info: pose, traits, multiple characters, questions.", s4);
         document.getElementById("fdFields").innerHTML = html;
       }
       function populateFormDetail(id) {
@@ -3156,6 +3384,15 @@
            one shared Ko-fi listing, so a new form service added to
            FORM_SERVICES is wired to Ko-fi automatically */
         document.getElementById("fdSubmit").textContent = "Send Request & Continue to Payment";
+        /* the send button starts locked for every service, VGen-style:
+           it unlocks once the required fields and the confirmation
+           are done (fdCheckReady watches the form from here on) */
+        document.getElementById("fdSubmit").disabled = true;
+        var fdHint = document.getElementById("fdReadyHint");
+        if (fdHint) {
+          fdHint.textContent = "The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.";
+          fdHint.classList.remove("ready");
+        }
         document.getElementById("fdKofiBtn").href = KOFI_URL;
         document.getElementById("fdKofiBtn").style.display = "none";
         document.getElementById("fdSendStatus").textContent = "";
@@ -3185,6 +3422,28 @@
           }
         });
         fdForm.addEventListener("click", function (e) {
+          var addLink = e.target.closest ? e.target.closest("[data-fd-addlink]") : null;
+          if (addLink) {
+            var lbox = document.getElementById("fdLinks-" + addLink.getAttribute("data-fd-addlink"));
+            if (lbox) {
+              var wrap = document.createElement("div");
+              wrap.innerHTML = fdLinkRow(false);
+              lbox.appendChild(wrap.firstChild);
+              fdSyncLinkRemove(lbox);
+              var nu = lbox.querySelector(".link-row:last-child .lr-url");
+              if (nu) nu.focus();
+            }
+            return;
+          }
+          var rmLink = e.target.closest ? e.target.closest("[data-fd-rmlink]") : null;
+          if (rmLink) {
+            var lrow = rmLink.closest(".link-row");
+            var lbox2 = lrow ? lrow.parentElement : null;
+            if (lrow) lrow.remove();
+            if (lbox2) fdSyncLinkRemove(lbox2);
+            fdCheckReady();
+            return;
+          }
           var change = e.target.closest ? e.target.closest("#fdPickChange") : null;
           if (change) {
             var grid = document.getElementById("fdTierGrid");
@@ -3206,9 +3465,21 @@
         fdForm.addEventListener("input", function (e) {
           var f = e.target.closest ? e.target.closest(".field") : null;
           if (f) f.classList.remove("invalid");
+          fdCheckReady();
+        });
+        fdForm.addEventListener("change", function (e) {
+          if (e.target.id === "fdNoRush-deadline") {
+            var dEl = document.getElementById("fdF-deadline");
+            if (dEl) {
+              dEl.disabled = e.target.checked;
+              if (e.target.checked) dEl.value = "";
+            }
+          }
+          fdCheckReady();
         });
         document.getElementById("fdTos").addEventListener("change", function () {
           document.getElementById("f-fdtos").classList.remove("invalid");
+          fdCheckReady();
         });
         document.getElementById("fdBack").addEventListener("click", function () {
           exitFormMode();
@@ -3221,15 +3492,43 @@
           var el = document.getElementById("fdF-" + id);
           return el ? el.value.trim() : "";
         }
+        function fdSyncLinkRemove(box) {
+          var rows = box.querySelectorAll(".link-row");
+          rows.forEach(function (row) {
+            var btn = row.querySelector("[data-fd-rmlink]");
+            if (btn) btn.disabled = rows.length <= 1;
+          });
+        }
+        /* the send button stays locked until every required field is
+           filled and the acknowledgement is ticked, like VGen's */
+        function fdCheckReady() {
+          var c = fdCfg();
+          var ready = !!fdVal("name") && /.+@.+/.test(fdVal("email"));
+          if (ready) {
+            for (var i = 0; i < c.fields.length; i++) {
+              var f = c.fields[i];
+              if (f.required && f.type !== "check" && !fdFieldVal(f)) { ready = false; break; }
+            }
+          }
+          if (ready && !document.getElementById("fdTos").checked) ready = false;
+          var btn = document.getElementById("fdSubmit");
+          if (btn) btn.disabled = !ready;
+          var hint = document.getElementById("fdReadyHint");
+          if (hint) {
+            hint.textContent = ready
+              ? "All set ✓ Send it, and you'll continue to Ko-fi to pay your total."
+              : "The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.";
+            hint.classList.toggle("ready", ready);
+          }
+        }
         fdForm.addEventListener("submit", function (e) {
           e.preventDefault();
           var c = fdCfg(), s = fdService();
           var ok = true;
           ok = setInvalid("f-fd-name", !fdVal("name")) && ok;
-          if (c.contactMode === "emailSocial") ok = setInvalid("f-fd-email", !fdVal("email")) && ok;
-          else ok = setInvalid("f-fd-contact", !fdVal("contact")) && ok;
+          ok = setInvalid("f-fd-email", !/.+@.+/.test(fdVal("email"))) && ok;
           c.fields.forEach(function (f) {
-            if (f.required) ok = setInvalid("f-fd-" + f.id, !fdVal(f.id)) && ok;
+            if (f.required && f.type !== "check") ok = setInvalid("f-fd-" + f.id, !fdFieldVal(f)) && ok;
           });
           var tos = document.getElementById("fdTos").checked;
           ok = setInvalid("f-fdtos", !tos) && ok;
@@ -3241,13 +3540,10 @@
 
           var t = fdTotals();
           var lines = ["🌿 " + c.summaryName + " for Vivi (@greenvielle)", ""];
-          lines.push("Name / username: " + fdVal("name"));
-          if (c.contactMode === "emailSocial") {
-            lines.push("Email: " + fdVal("email"));
-            lines.push("Socials: " + (fdVal("social") || "not specified"));
-          } else {
-            lines.push("Contact: " + fdVal("contact"));
-          }
+          lines.push("Name: " + fdVal("name"));
+          lines.push("Email: " + fdVal("email"));
+          lines.push("Discord: " + (fdVal("discord") || "not specified"));
+          lines.push("X / Twitter: " + (fdVal("x") || "not specified"));
           lines.push(c.tierWord + ": " + t.tier.name + " (" + fmtUSD(t.tier.price) + ")");
           lines.push("");
           var addonLines = [];
@@ -3260,11 +3556,11 @@
             } else if (kind === "field") {
               var f = c.fields.filter(function (x) { return x.id === key; })[0];
               if (!f) return;
+              var fv = fdFieldVal(f);
               if (f.type === "check") {
-                var cb = document.getElementById("fdF-" + f.id);
-                lines.push(f.label + ": " + (cb && cb.checked ? "yes" : "no"));
+                lines.push(f.label + ": " + fv);
               } else {
-                lines.push(f.label + ": " + (fdVal(f.id) || (f.type === "textarea" ? "none yet" : "not specified")));
+                lines.push(f.label + ": " + (fv || ((f.type === "textarea" || FD_LINK_FIELDS[f.id]) ? "none yet" : "not specified")));
               }
             } else if (kind === "addons") {
               (c.addons || []).forEach(function (a) {
@@ -3279,6 +3575,10 @@
               });
             }
           });
+          if (!c.fields.some(function (f) { return f.id === "deadline"; })) {
+            var dlVal = fdFieldVal({ id: "deadline" });
+            if (dlVal) lines.push("Preferred deadline: " + dlVal);
+          }
           lines.push("");
           lines.push("Add-ons:");
           lines.push(addonLines.length ? addonLines.join("\n") : "  none");
@@ -3313,12 +3613,9 @@
             "Full request summary": lines.join("\n"),
             botcheck: ""
           };
-          if (c.contactMode === "emailSocial") {
-            fdPayload["Email"] = fdVal("email");
-            fdPayload["Socials"] = fdVal("social") || "not specified";
-          } else {
-            fdPayload["Contact"] = fdVal("contact");
-          }
+          fdPayload["Email"] = fdVal("email");
+          fdPayload["Discord"] = fdVal("discord") || "not specified";
+          fdPayload["X / Twitter"] = fdVal("x") || "not specified";
           fdPayload[c.tierWord] = t.tier.name + " (" + fmtUSD(t.tier.price) + ")";
           if (addonLines.length) fdPayload["Add-ons"] = addonLines.join("\n");
           function fdSendDone(sent, detail) {
@@ -3505,18 +3802,77 @@
         maSyncUI();
 
         var maForm = document.getElementById("maForm");
+        /* references are add-a-link rows here too, same as the shared
+           form: one URL plus a name per row, add and remove buttons */
+        var maLinksBox = document.getElementById("maLinks");
+        maLinksBox.innerHTML = fdLinkRow(true);
+        function maSyncLinkRemove() {
+          var rows = maLinksBox.querySelectorAll(".link-row");
+          rows.forEach(function (row) {
+            var btn = row.querySelector("[data-fd-rmlink]");
+            if (btn) btn.disabled = rows.length <= 1;
+          });
+        }
+        document.getElementById("maAddLink").addEventListener("click", function () {
+          var wrap = document.createElement("div");
+          wrap.innerHTML = fdLinkRow(false);
+          maLinksBox.appendChild(wrap.firstChild);
+          maSyncLinkRemove();
+          var nu = maLinksBox.querySelector(".link-row:last-child .lr-url");
+          if (nu) nu.focus();
+        });
+        maLinksBox.addEventListener("click", function (e) {
+          var rm = e.target.closest ? e.target.closest("[data-fd-rmlink]") : null;
+          if (!rm) return;
+          var row = rm.closest(".link-row");
+          if (row) row.remove();
+          maSyncLinkRemove();
+        });
+        function maLinkValues() {
+          var lines = [];
+          maLinksBox.querySelectorAll(".link-row").forEach(function (row) {
+            var url = row.querySelector(".lr-url").value.trim();
+            var nm = row.querySelector(".lr-name").value.trim();
+            if (url) lines.push(nm ? nm + " — " + url : url);
+          });
+          return lines;
+        }
+        /* the send button stays locked until name, email, and the
+           confirmation are done, like the shared form */
+        function maCheckReady() {
+          var ready = !!document.getElementById("maName").value.trim()
+            && /.+@.+/.test(document.getElementById("maEmail").value.trim())
+            && document.getElementById("maTos").checked;
+          document.getElementById("maSubmit").disabled = !ready;
+          var hint = document.getElementById("maReadyHint");
+          hint.textContent = ready
+            ? "All set ✓ Send it, and you'll continue to Ko-fi to pay your total."
+            : "The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.";
+          hint.classList.toggle("ready", ready);
+        }
+        maForm.addEventListener("input", maCheckReady);
+        maForm.addEventListener("change", function (e) {
+          if (e.target.id === "maNoRush") {
+            var dEl = document.getElementById("maDate");
+            dEl.disabled = e.target.checked;
+            if (e.target.checked) dEl.value = "";
+          }
+          maCheckReady();
+        });
         maForm.addEventListener("submit", function (e) {
           e.preventDefault();
           var name = document.getElementById("maName").value.trim();
-          var contact = document.getElementById("maContact").value.trim();
-          var refs = document.getElementById("maRefs").value.trim();
-          var deadline = document.getElementById("maDeadline").value.trim();
+          var email = document.getElementById("maEmail").value.trim();
+          var discord = document.getElementById("maDiscord").value.trim();
+          var xhandle = document.getElementById("maX").value.trim();
+          var refs = maLinkValues().join("\n");
+          var deadline = document.getElementById("maNoRush").checked ? "no rush" : document.getElementById("maDate").value.trim();
           var notes = document.getElementById("maNotes").value.trim();
           var tos = document.getElementById("maTos").checked;
 
           var ok = true;
           ok = setInvalid("f-maname", !name) && ok;
-          ok = setInvalid("f-macontact", !contact) && ok;
+          ok = setInvalid("f-maemail", !/.+@.+/.test(email)) && ok;
           ok = setInvalid("f-matos", !tos) && ok;
           if (!ok) {
             var firstBad = maForm.querySelector(".field.invalid");
@@ -3533,8 +3889,10 @@
           var lines = [
             "🌿 LIVE2D MODEL ART REQUEST for Vivi (@greenvielle)",
             "",
-            "Name / username: " + name,
-            "Contact: " + contact,
+            "Name: " + name,
+            "Email: " + email,
+            "Discord: " + (discord || "not specified"),
+            "X / Twitter: " + (xhandle || "not specified"),
             "Tier: " + t.tier.name + " (" + fmtUSD(t.tier.price) + ")",
             "",
             "Add-ons:",
@@ -3574,7 +3932,9 @@
             subject: "New Order: Live2D Model Art · " + name,
             from_name: "Vivi Commission",
             "Name / username": name,
-            "Contact": contact,
+            "Email": email,
+            "Discord": discord || "not specified",
+            "X / Twitter": xhandle || "not specified",
             "Tier": t.tier.name + " (" + fmtUSD(t.tier.price) + ")",
             "Add-ons": addonLines.length ? addonLines.join("\n") : "none",
             "Estimated total": fmtUSD(t.total),
@@ -3624,7 +3984,7 @@
               .catch(function (err) { sendDone(false, "network error" + (err && err.message ? ": " + err.message : "")); });
           } else { sendDone(false, "this browser doesn't support sending the form directly"); }
         });
-        [["maName", "f-maname"], ["maContact", "f-macontact"], ["maTos", "f-matos"]].forEach(function (pair) {
+        [["maName", "f-maname"], ["maEmail", "f-maemail"], ["maTos", "f-matos"]].forEach(function (pair) {
           var clear = function () { document.getElementById(pair[1]).classList.remove("invalid"); };
           document.getElementById(pair[0]).addEventListener("input", clear);
           document.getElementById(pair[0]).addEventListener("change", clear);
