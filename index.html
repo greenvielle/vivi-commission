@@ -700,6 +700,13 @@
       .summary-box .send-status.ok { color: var(--forest); }
       .summary-box .send-status.err { color: #B4503F; }
       .summary-box .send-detail { display: block; margin-top: 8px; font-size: 12.5px; font-weight: 500; line-height: 1.55; color: var(--ink-soft); overflow-wrap: break-word; }
+      .paypal-block { display: none; position: relative; z-index: 1; margin: 0 0 20px; padding: 22px; background: var(--paper); border: 1.5px dashed color-mix(in srgb, var(--forest) 22%, transparent); border-radius: 20px; }
+      .paypal-block.show { display: block; }
+      .paypal-block .pay-title { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+      .paypal-block .pay-note { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin-bottom: 16px; }
+      .paypal-buttons { max-width: 440px; min-height: 46px; }
+      .paypal-block .pay-status { font-size: 14.5px; font-weight: 600; line-height: 1.6; margin-top: 14px; color: var(--forest); overflow-wrap: break-word; }
+      .paypal-block .pay-status.err { color: #B4503F; }
 
       /* ---------- form service detail view ---------- */
       #form-detail { display: none; }
@@ -1170,7 +1177,7 @@
             <div class="acc-item">
               <button class="acc-btn" aria-expanded="false">Payment, How It Works <span class="chev">▾</span></button>
               <div class="acc-panel">
-                <p>Payment goes through my Ko-fi page, the same one for every service. When you send a request form, your order details come to my inbox first, and then you continue to Ko-fi and enter the total from your request yourself.</p>
+                <p>Payment goes through PayPal. When you send a request form, your order details come to my inbox first, and then you pay right on this page with the total from your request already filled in for you.</p>
                 <p>Once your request is accepted, we'll confirm the total price and payment schedule together before work begins. Split payments (for example, part upfront and the rest before final delivery) can be arranged for larger projects, just ask. Talk to me first before you pay, and we'll figure it out together. Work starts after the agreed first payment is received.</p>
                 <p>Please never send payment to any account that I haven't confirmed with you myself, through my official channels listed on this page.</p>
               </div>
@@ -1269,7 +1276,7 @@
             <div class="acc-item">
               <button class="acc-btn" aria-expanded="false">How does payment work? Is it safe? <span class="chev">▾</span></button>
               <div class="acc-panel">
-                <p>Payment goes through my Ko-fi page, after you send your request, you continue there and enter the total from your request. Never pay through a random link, and if you'd like a payment plan for a bigger project, talk to me first and we'll figure it out together. You can read the full payment policy in the <a href="#guide">Guide &amp; Terms</a> above.</p>
+                <p>Payment goes through PayPal: after you send your request, you pay right on this page with the total from your request already filled in for you. Never pay through a random link, and if you'd like a payment plan for a bigger project, talk to me first and we'll figure it out together. You can read the full payment policy in the <a href="#guide">Guide &amp; Terms</a> above.</p>
               </div>
             </div>
             <div class="acc-item">
@@ -1339,7 +1346,7 @@
             </div>
             <div class="rv-card">
               <h3 id="fdFormTitle">Request This Service</h3>
-              <p class="rv-note" style="margin-bottom: 20px;">Here's how requesting works: fill this in with as much detail as you can, in five short steps, then send it. I review every request personally and confirm the exact price and timing with you before any work starts, so sending a request never locks you in. When you send it, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment, just enter the total from your request there.</p>
+              <p class="rv-note" style="margin-bottom: 20px;">Here's how requesting works: fill this in with as much detail as you can, in five short steps, then send it. I review every request personally and confirm the exact price and timing with you before any work starts, so sending a request never locks you in. When you send it, your order details go straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you.</p>
               <p class="rv-note" style="margin-top: -12px; margin-bottom: 20px;">If you'd like to talk through your project first, my DMs on X are always open, and you can also <a class="discord-find-link" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">find me on discord</a> if you prefer to chat there first.</p>
               <form id="fdForm" novalidate>
                 <div class="fsteps" id="fdFields"></div>
@@ -1357,7 +1364,7 @@
                         <span class="from">Your Estimated Total</span>
                         <div class="total-lines" id="fdTotalLines"></div>
                         <div class="total-amount" id="fdTotalAmount">$0</div>
-                        <p class="total-note">An estimate from the options you picked, and this is the amount you'll pay on Ko-fi right after sending your request.</p>
+                        <p class="total-note">An estimate from the options you picked, and this is the amount you'll pay with PayPal right after sending your request.</p>
                       </div>
                     </div>
                     <div class="field full" id="f-fdtos">
@@ -1382,8 +1389,13 @@
                 <p class="send-status" id="fdSendStatus" role="status"></p>
                 <p style="color: var(--ink-soft); position: relative; z-index: 1;">Here's your order summary. Keep a copy if you'd like.</p>
                 <pre id="fdSummaryText"></pre>
+                <div class="paypal-block" id="fdPaypalBlock">
+                  <p class="pay-title">Complete your payment with PayPal</p>
+                  <p class="pay-note">Your total of <strong id="fdPayTotal"></strong> is already filled in for you — just tap the PayPal button below, no need to type the amount yourself.</p>
+                  <div class="paypal-buttons" id="fdPaypalButtons"></div>
+                  <p class="pay-status" id="fdPayStatus" role="status" style="display: none;"></p>
+                </div>
                 <div class="summary-actions">
-                  <a class="btn btn-primary btn-small" id="fdKofiBtn" href="https://ko-fi.com/c/84800e167f" target="_blank" rel="noopener" style="display: none;">Continue to Payment on Ko-fi →</a>
                   <button type="button" class="btn btn-ghost btn-small" id="fdCopyBtn">Copy Request Summary</button>
                   <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener">Find Me on X</a>
                   <span class="copy-ok" id="fdCopyOk">Copied! Now just paste it into a message ✓</span>
@@ -1427,14 +1439,14 @@
             <div class="rv-card">
               <h3>Important, Please Read</h3>
               <ul class="rv-list">
-                <li>When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to talk through your model first, my DMs on X (<a href="https://x.com/greenvielle" target="_blank" rel="noopener">@greenvielle</a> or <a href="https://x.com/greenvielle2nd" target="_blank" rel="noopener">@greenvielle2nd</a>) are always open.</li>
+                <li>When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to talk through your model first, my DMs on X (<a href="https://x.com/greenvielle" target="_blank" rel="noopener">@greenvielle</a> or <a href="https://x.com/greenvielle2nd" target="_blank" rel="noopener">@greenvielle2nd</a>) are always open.</li>
                 <li>This page is the art only. Rigging is a separate service, so if you want your model animated too, take a look at Live2D Rigging as well.</li>
                 <li>Please credit me as the model artist on your socials, on Twitch, and when you debut your model.</li>
               </ul>
             </div>
             <div class="rv-card">
               <h3>Request Live2D Model Art</h3>
-              <p class="rv-note" style="margin-bottom: 20px;">This form is only for model art, so it asks the model art questions. Here's how requesting works: fill this in with as much detail as you can, in five short steps, then send it. I review every request personally and confirm the exact price and timing with you before any work starts, so sending a request never locks you in. When you send it, your order details go straight to my inbox and you'll continue to Ko-fi to complete your payment.</p>
+              <p class="rv-note" style="margin-bottom: 20px;">This form is only for model art, so it asks the model art questions. Here's how requesting works: fill this in with as much detail as you can, in five short steps, then send it. I review every request personally and confirm the exact price and timing with you before any work starts, so sending a request never locks you in. When you send it, your order details go straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you.</p>
               <p class="rv-note" style="margin-top: -12px; margin-bottom: 20px;">You can also <a class="discord-find-link" href="https://discord.com/users/536170721764966410" target="_blank" rel="noopener">find me on discord</a> if you prefer to chat there first.</p>
               <form id="maForm" novalidate>
                 <div class="fsteps">
@@ -1544,7 +1556,7 @@
                           <span class="from">Your Estimated Total</span>
                           <div class="total-lines" id="maTotalLines"></div>
                           <div class="total-amount" id="maTotalAmount">$105</div>
-                          <p class="total-note">An estimate from the tier and add-ons you picked, and this is the amount you'll pay on Ko-fi right after sending your request.</p>
+                          <p class="total-note">An estimate from the tier and add-ons you picked, and this is the amount you'll pay with PayPal right after sending your request.</p>
                         </div>
                       </div>
                       <div class="field full" id="f-matos">
@@ -1570,8 +1582,13 @@
                 <p class="send-status" id="maSendStatus" role="status"></p>
                 <p style="color: var(--ink-soft); position: relative; z-index: 1;">Here's your order summary. Keep a copy if you'd like.</p>
                 <pre id="maSummaryText"></pre>
+                <div class="paypal-block" id="maPaypalBlock">
+                  <p class="pay-title">Complete your payment with PayPal</p>
+                  <p class="pay-note">Your total of <strong id="maPayTotal"></strong> is already filled in for you — just tap the PayPal button below, no need to type the amount yourself.</p>
+                  <div class="paypal-buttons" id="maPaypalButtons"></div>
+                  <p class="pay-status" id="maPayStatus" role="status" style="display: none;"></p>
+                </div>
                 <div class="summary-actions">
-                  <a class="btn btn-primary btn-small" id="maKofiBtn" href="https://ko-fi.com/c/84800e167f" target="_blank" rel="noopener" style="display: none;">Continue to Payment on Ko-fi →</a>
                   <button type="button" class="btn btn-ghost btn-small" id="maCopyBtn">Copy Request Summary</button>
                   <a class="btn btn-ghost btn-small" href="https://x.com/greenvielle" target="_blank" rel="noopener">Find Me on X</a>
                   <span class="copy-ok" id="maCopyOk">Copied! Now just paste it into a message ✓</span>
@@ -1735,16 +1752,109 @@
       };
 
       /* ================================================================
-         PAYMENT: ONE Ko-fi listing for every commission. this is the
-         single place the payment link lives, and every service's request
-         flow reads it from here (the model art form, the shared form
-         for the other form services, and the DM-request page), so a
-         service added later is wired to Ko-fi automatically just by
-         using those shared pages. clients enter the total from their
-         request themselves on Ko-fi.
+         PAYMENT: form requests pay with PayPal Smart Buttons, rendered
+         right on this page after the order email is sent, with the
+         request's total already filled in (see renderPayPalButtons).
+         PAYPAL_CLIENT_ID is a public identifier by design: it lives in
+         the PayPal JS SDK URL in the page source. NEVER put the app
+         Secret here, it is not used anywhere on this site.
+         KOFI_URL is kept only for the DM-request services page (e.g.
+         Emotes), where the price is agreed in DMs first and paid on
+         the one shared Ko-fi listing.
          ================================================================ */
+      var PAYPAL_CLIENT_ID = "BAAIUp1KQ-1umBTzmy36FZUmk9mOFav0tVcC82ZtyDaCr7K0quPw2lle7QKbizkuMoVyFxSed6ywenoEPo";
       var KOFI_URL = "https://ko-fi.com/c/84800e167f";
       var WEB3FORMS_KEY = "3151acb2-9f81-4dd8-b73b-28c514f93298";
+
+      /* the PayPal JS SDK is loaded lazily, only when a payment step
+         is actually shown (after a form submission succeeds). if it
+         fails to load, the buyer gets a friendly message and the DM
+         fallback instead of a dead button area. */
+      var paypalSdkPromise = null;
+      function loadPayPalSdk() {
+        if (window.paypal && window.paypal.Buttons) return Promise.resolve(window.paypal);
+        if (paypalSdkPromise) return paypalSdkPromise;
+        paypalSdkPromise = new Promise(function (resolve, reject) {
+          var s = document.createElement("script");
+          s.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(PAYPAL_CLIENT_ID) + "&currency=USD";
+          s.async = true;
+          s.onload = function () {
+            if (window.paypal && window.paypal.Buttons) resolve(window.paypal);
+            else reject(new Error("PayPal SDK loaded without Buttons"));
+          };
+          s.onerror = function () { reject(new Error("PayPal SDK failed to load")); };
+          document.head.appendChild(s);
+        });
+        return paypalSdkPromise;
+      }
+      /* hide a PayPal payment block and clear any rendered button or
+         message inside it (used when a form page is (re)populated) */
+      function resetPayPalBlock(blockId, containerId, statusId) {
+        var block = document.getElementById(blockId);
+        if (block) block.classList.remove("show");
+        var c = document.getElementById(containerId);
+        if (c) c.innerHTML = "";
+        var st = document.getElementById(statusId);
+        if (st) { st.textContent = ""; st.className = "pay-status"; st.style.display = "none"; }
+      }
+      /* render a PayPal Smart Button into a container. opts:
+         amount (number, USD), description (service + tier),
+         customId (service id + tier id, to match the payment to the
+         order email). status messages go into statusId.
+         capture happens client-side via the SDK: this is a static
+         site, so the order email and the PayPal payment notification
+         stay two records matched by the buyer's name/email. */
+      function renderPayPalButtons(containerId, statusId, opts) {
+        var container = document.getElementById(containerId);
+        var status = document.getElementById(statusId);
+        if (!container) return;
+        container.innerHTML = "";
+        function payMsg(text, isErr) {
+          if (!status) return;
+          status.textContent = text || "";
+          status.className = "pay-status" + (isErr ? " err" : "");
+          status.style.display = text ? "" : "none";
+        }
+        payMsg("Loading the PayPal button…", false);
+        loadPayPalSdk().then(function (paypal) {
+          payMsg("", false);
+          paypal.Buttons({
+            style: { layout: "vertical", color: "gold", shape: "pill", label: "paypal" },
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [{
+                  description: opts.description,
+                  custom_id: opts.customId,
+                  amount: { currency_code: "USD", value: opts.amount.toFixed(2) }
+                }]
+              });
+            },
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (details) {
+                var txnId = "";
+                try {
+                  var units = (details && details.purchase_units) || [];
+                  var caps = units[0] && units[0].payments && units[0].payments.captures;
+                  if (caps && caps[0] && caps[0].id) txnId = caps[0].id;
+                } catch (err) { /* fall back to the order id below */ }
+                if (!txnId) txnId = data.orderID || "";
+                container.innerHTML = "";
+                payMsg("Payment received ✓ Thank you so much!" + (txnId ? " Your PayPal transaction ID is " + txnId + "." : "") + " I'll confirm your order in your DMs/email as soon as I've reviewed your request.", false);
+              }).catch(function () {
+                payMsg("Hmm, your payment was approved but capturing it hit a snag. Please don't pay again yet — DM me on X (@greenvielle or @greenvielle2nd)" + (data.orderID ? " with your PayPal order ID " + data.orderID : "") + " and we'll sort it out together.", true);
+              });
+            },
+            onCancel: function () {
+              payMsg("No worries, the payment was cancelled and nothing was charged. You can try again with the button above whenever you're ready, or DM me on X (@greenvielle or @greenvielle2nd) if you'd like to arrange it another way.", false);
+            },
+            onError: function () {
+              payMsg("Hmm, PayPal hit a snag just now. You can try the button again, or DM me on X (@greenvielle or @greenvielle2nd) and we'll find another way to pay.", true);
+            }
+          }).render(container);
+        }).catch(function () {
+          payMsg("Hmm, the PayPal button couldn't load just now. Please check your connection and reload the page, or DM me on X (@greenvielle or @greenvielle2nd) and we'll arrange your payment another way.", true);
+        });
+      }
 
       var SERVICES = [
         {
@@ -1944,7 +2054,7 @@
           ],
           layout: ["group:license", "field:refs", "group:background", "addons", "group:rush", "group:share", "field:deadline", "field:notes", "group:payment"],
           important: [
-            "When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to talk through your piece first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
+            "When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to talk through your piece first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "Please credit me as the artist when you post the finished piece.",
             "The background you pick is already counted in your total, so there are no surprise extra costs later."
           ]
@@ -2000,7 +2110,7 @@
           notes: { usage: "Good news, with rigging every use is included. Streaming, content, and merch are all covered at no extra charge, so there is no license choice to make here." },
           layout: ["note:usage", "field:psd", "field:artist", "addons", "group:rush", "field:deadline", "field:nda", "field:notes"],
           important: [
-            "When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to talk through the rigging details first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
+            "When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to talk through the rigging details first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "The CMO3 source file is not included by default. If you need it, you can add it in the form below (it costs +60%).",
             "Please credit me as the rigger on your socials, on Twitch, and when you debut your model."
           ]
@@ -2053,7 +2163,7 @@
           ],
           layout: ["group:license", "group:source", "field:refs", "group:share", "addons", "field:deadline", "field:notes"],
           important: [
-            "When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to plan your model and your debut together first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
+            "When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to plan your model and your debut together first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "Because a full package is a big project, we confirm the scope, timeline, and payment schedule together in DMs before anything starts.",
             "Please credit me as the model artist and rigger on your socials, on Twitch, and at your debut."
           ]
@@ -2094,7 +2204,7 @@
           ],
           layout: ["group:usage", "field:refs", "field:notes"],
           important: [
-            "When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to talk through your overlay first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
+            "When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to talk through your overlay first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "Please credit me as the artist when you use your overlay on stream.",
             "Art only packages take around 2 to 3 weeks, and packages with rigging take around 3 to 4 weeks."
           ]
@@ -2139,7 +2249,7 @@
           ],
           layout: ["group:license", "field:refs", "addons", "field:notes"],
           important: [
-            "When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to talk through your controller first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
+            "When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to talk through your controller first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "Please credit me as the artist when you use your controller on stream.",
             "The artwork above shows the boobs controller design. Your controller will be made fresh with your own character, in the size you pick."
           ]
@@ -2191,7 +2301,7 @@
           ],
           layout: ["group:license", "group:rush", "field:refs", "field:logotext", "field:color", "field:notes", "group:portfolio"],
           important: [
-            "When you send the form below, your order details come straight to my inbox and you'll continue to Ko-fi to complete your payment. If you'd like to confirm the design direction first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
+            "When you send the form below, your order details come straight to my inbox and you'll pay right here with PayPal, with the total from your request already filled in for you. If you'd like to confirm the design direction first, my DMs on X (<a href=\"https://x.com/greenvielle\" target=\"_blank\" rel=\"noopener\">@greenvielle</a> or <a href=\"https://x.com/greenvielle2nd\" target=\"_blank\" rel=\"noopener\">@greenvielle2nd</a>) are always open.",
             "Your finished logo is delivered as a PNG file.",
             "If you'd rather send reference files than links, just say so in your DM and we'll arrange it there."
           ]
@@ -3071,9 +3181,9 @@
          one shared detail view driven by FORM_SERVICES: gallery, tier
          picker, includes, add-on price list, and a request form with a
          live itemized total. sending the form emails the order to
-         Vivi via Web3Forms, then the client continues to the shared
-         Ko-fi listing (KOFI_URL) to pay, the same flow as model art,
-         so every service added here is wired to Ko-fi automatically. */
+         Vivi via Web3Forms, then the client pays with PayPal right
+         on the page, the same flow as model art, so every service
+         added here is wired to PayPal automatically. */
       var fdId = "illustration";
       var fdState = null;
 
@@ -3380,9 +3490,9 @@
         document.getElementById("fdImportant").innerHTML = (c.important || []).map(function (i) { return "<li>" + i + "</li>"; }).join("");
         document.getElementById("fdFormTitle").textContent = "Request " + s.name;
         /* every form service uses the same send + pay step as model art:
-           the order is emailed to Vivi, then the client continues to the
-           one shared Ko-fi listing, so a new form service added to
-           FORM_SERVICES is wired to Ko-fi automatically */
+           the order is emailed to Vivi, then the client pays with
+           PayPal right on the page, so a new form service added to
+           FORM_SERVICES is wired to PayPal automatically */
         document.getElementById("fdSubmit").textContent = "Send Request & Continue to Payment";
         /* the send button starts locked for every service, VGen-style:
            it unlocks once the required fields and the confirmation
@@ -3393,8 +3503,7 @@
           fdHint.textContent = "The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.";
           fdHint.classList.remove("ready");
         }
-        document.getElementById("fdKofiBtn").href = KOFI_URL;
-        document.getElementById("fdKofiBtn").style.display = "none";
+        resetPayPalBlock("fdPaypalBlock", "fdPaypalButtons", "fdPayStatus");
         document.getElementById("fdSendStatus").textContent = "";
         document.getElementById("fdSummaryTitle").textContent = c.summaryTitle;
         document.getElementById("fdTos").checked = false;
@@ -3516,7 +3625,7 @@
           var hint = document.getElementById("fdReadyHint");
           if (hint) {
             hint.textContent = ready
-              ? "All set ✓ Send it, and you'll continue to Ko-fi to pay your total."
+              ? "All set ✓ Send it, and you'll pay your total with PayPal."
               : "The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.";
             hint.classList.toggle("ready", ready);
           }
@@ -3591,10 +3700,8 @@
           box.classList.add("show");
           document.getElementById("fdCopyOk").style.display = "none";
           var fdStatusEl = document.getElementById("fdSendStatus");
-          var fdKofiBtn = document.getElementById("fdKofiBtn");
           var fdSubmitBtn = document.getElementById("fdSubmit");
-          fdKofiBtn.href = KOFI_URL;
-          fdKofiBtn.style.display = "none";
+          resetPayPalBlock("fdPaypalBlock", "fdPaypalButtons", "fdPayStatus");
           fdStatusEl.className = "send-status";
           fdStatusEl.textContent = "Sending your order to my inbox…";
           fdSubmitBtn.disabled = true;
@@ -3603,7 +3710,8 @@
 
           /* same order flow as model art, shared by every form service:
              the order goes to Vivi's inbox via Web3Forms, then the
-             client continues to the one Ko-fi listing to pay */
+             client pays with PayPal right on this page. if the send
+             fails, no PayPal button is shown, just the DM fallback. */
           var fdPayload = {
             access_key: WEB3FORMS_KEY,
             subject: "New Order: " + s.name + " · " + fdVal("name"),
@@ -3623,9 +3731,14 @@
             fdSubmitBtn.textContent = "Send Request & Continue to Payment";
             if (sent) {
               fdStatusEl.className = "send-status ok";
-              fdStatusEl.textContent = "Your order is in my inbox ✓ Next step: complete your payment on Ko-fi, opening it for you now. If it doesn't open, tap the button below.";
-              fdKofiBtn.style.display = "inline-flex";
-              setTimeout(function () { window.open(KOFI_URL, "_blank", "noopener"); }, 1200);
+              fdStatusEl.textContent = "Your order is in my inbox ✓ One last step: complete your payment with PayPal below.";
+              document.getElementById("fdPayTotal").textContent = fmtUSD(t.total);
+              document.getElementById("fdPaypalBlock").classList.add("show");
+              renderPayPalButtons("fdPaypalButtons", "fdPayStatus", {
+                amount: t.total,
+                description: s.name + " - " + t.tier.name,
+                customId: s.id + "-" + t.tier.id
+              });
             } else {
               fdStatusEl.className = "send-status err";
               fdStatusEl.textContent = "Hmm, the order couldn't be sent just now. No worries. Copy the summary below and DM it to me on X (@greenvielle or @greenvielle2nd) and we'll take it from there.";
@@ -3846,7 +3959,7 @@
           document.getElementById("maSubmit").disabled = !ready;
           var hint = document.getElementById("maReadyHint");
           hint.textContent = ready
-            ? "All set ✓ Send it, and you'll continue to Ko-fi to pay your total."
+            ? "All set ✓ Send it, and you'll pay your total with PayPal."
             : "The send button unlocks once the starred (*) fields are filled and the confirmation above is ticked.";
           hint.classList.toggle("ready", ready);
         }
@@ -3915,10 +4028,8 @@
           box.classList.add("show");
           document.getElementById("maCopyOk").style.display = "none";
           var statusEl = document.getElementById("maSendStatus");
-          var kofiBtn = document.getElementById("maKofiBtn");
           var submitBtn = document.getElementById("maSubmit");
-          kofiBtn.href = KOFI_URL;
-          kofiBtn.style.display = "none";
+          resetPayPalBlock("maPaypalBlock", "maPaypalButtons", "maPayStatus");
           statusEl.className = "send-status";
           statusEl.textContent = "Sending your order to my inbox…";
           submitBtn.disabled = true;
@@ -3949,9 +4060,14 @@
             submitBtn.textContent = "Send Request & Continue to Payment";
             if (sent) {
               statusEl.className = "send-status ok";
-              statusEl.textContent = "Your order is in my inbox ✓ Next step: complete your payment on Ko-fi, opening it for you now. If it doesn't open, tap the button below.";
-              kofiBtn.style.display = "inline-flex";
-              setTimeout(function () { window.open(KOFI_URL, "_blank", "noopener"); }, 1200);
+              statusEl.textContent = "Your order is in my inbox ✓ One last step: complete your payment with PayPal below.";
+              document.getElementById("maPayTotal").textContent = fmtUSD(t.total);
+              document.getElementById("maPaypalBlock").classList.add("show");
+              renderPayPalButtons("maPaypalButtons", "maPayStatus", {
+                amount: t.total,
+                description: "Live2D Model Art - " + t.tier.name,
+                customId: "model-art-" + t.tier.id
+              });
             } else {
               statusEl.className = "send-status err";
               statusEl.textContent = "Hmm, the order couldn't be sent just now. No worries. Copy the summary below and DM it to me on X (@greenvielle or @greenvielle2nd) and we'll take it from there.";
